@@ -1,0 +1,71 @@
+.root {
+  background: #34c94b;
+  background: #121212;
+  border: 1px solid #000;
+  /* background: #FFF; */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: zero;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #000;
+  color: white;
+  font-family: "Poppins", "sans-serif";
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.swiper-slide {
+  width: auto !important;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
