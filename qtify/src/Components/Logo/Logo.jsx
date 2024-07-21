@@ -1,10 +1,6 @@
-import React from "react"
-import LogoImage from "../../Assests/Qtify-Logo.png"
+import React from 'react';
+import logo from '../../assets/image.png';
 
-function Logo(){
-    return(
-        <img src={LogoImage} alt="Logo" width={67}/>
-    )
-}
+const Logo = () => <img src={logo} alt="logo" width={100} />;
 
 export default Logo;

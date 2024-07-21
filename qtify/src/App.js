@@ -1,37 +1,70 @@
-import { useEffect, useState } from "react";
-import React from "react";
-import Navbar from "./Components/Navbar/Navbar";
-// import Hero from "../Components/Hero/Hero"
-import { Outlet } from "react-router-dom";
-import { fetchNewAlbums, fetchSongs, fetchTopAlbums } from "./Api/Api";
+import React, { useEffect, useState } from "react";
+import {
+  Header,
+  NavBar,
+  FAQAccordion,
+  GridSection,
+  Line,
+  MusicPlayer,
+} from "./components";
+import { fetchNewAlbums, fetchTopAlbums, fetchSongs } from "./api/api";
 
-function App() {
-  const [searchData, setSearchData] = useState();
-  const [data, setData] = useState({});
+const App = () => {
+  const [dataTopAlbums, setDataTopAlbums] = useState([]);
+  const [dataNewAlbum, setDataNewAlbum] = useState([]);
+  const [dataSong, setDataSong] = useState([]);
 
-  const generateData = (key, source) => {
-    source().then((value) => {
-      setData((prevData) => {
-        return { ...prevData, [key]: value };
-      });
-    });
+  const getDataTopAlbums = async () => {
+    try {
+      const res = await fetchTopAlbums();
+      setDataTopAlbums(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getDataNewAlbums = async () => {
+    try {
+      const res = await fetchNewAlbums();
+      setDataNewAlbum(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getDataSongs = async () => {
+    try {
+      const res = await fetchSongs();
+      setDataSong(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    generateData("topAlbums", fetchTopAlbums);
-    generateData("newAlbums", fetchNewAlbums);
-    generateData("songs", fetchSongs);
+    getDataTopAlbums();
+    getDataNewAlbums();
+    getDataSongs();
   }, []);
 
-  const { topAlbums = [], newAlbums = [], songs = [] } = data;
-
   return (
-    <>
-      <Navbar searchData={[...topAlbums, ...newAlbums]} />
-      {/* placeholder component (replaced with childcomponent) */}
-      <Outlet context={{ data: { topAlbums, newAlbums, songs } }} />
-    </>
+    <div>
+      <NavBar data={dataTopAlbums} />
+      <Header />
+      <GridSection title={"Top Albums"} data={dataTopAlbums} type={"album"} />
+      <GridSection title={"New Albums "} data={dataNewAlbum} type={"album"} />
+      <Line />
+      <GridSection
+        title={"Songs "}
+        data={dataSong}
+        type={"song"}
+        setDataSong={setDataSong}
+      />
+      <FAQAccordion />
+      <Line />
+      <MusicPlayer data={dataTopAlbums} />
+    </div>
   );
-}
+};
 
 export default App;

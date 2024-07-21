@@ -1,40 +1,21 @@
-import axios from "axios"
+import axios from "axios";
 
-// export const BACKEND_ENDPOINT = "https://qtify-backend-labs.crio.do";
-                                
+export const BACKEND_ENDPOINT = "https://qtify-backend-labs.crio.do";
 
-export const fetchTopAlbums = async () => {
-   try{
-        const response = await axios ("https://qtify-backend-labs.crio.do/albums/top")
-     //    console.log(response.data)
-        return response.data;
+export const fetchData = async (endpoint) => {
+  try {
+    const { data } = await axios.get(`${BACKEND_ENDPOINT}${endpoint}`);
+    // console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-   } catch(e){
-        console.error(e)
-   }
-}
-export const fetchNewAlbums = async () => {
-    try{
-         const response = await axios ("https://qtify-backend-labs.crio.do/albums/new")
-         return response.data;
-    } catch(e){
-         console.error(e)
-    }
- }
+export const fetchTopAlbums = async () => fetchData("/albums/top");
+export const fetchNewAlbums = async () => fetchData("/albums/new");
+export const fetchSlugAlbums = async (slug) => fetchData(`/albums/${slug}`);
+export const fetchSongs = async () => fetchData("/songs");
+export const fetchFaq = async () => fetchData("/faq");
+export const fetchGenres = async () => fetchData("/genres");
 
- export const fetchSongs = async () => {
-    try{
-         const response = await axios ("https://qtify-backend-labs.crio.do/songs")
-         return response.data;
-    } catch(e){
-         console.error(e)
-    }
- }
- export const fetchFilters = async () => {
-    try{
-         const response = await axios ("https://qtify-backend-labs.crio.do/genres")
-         return response.data;
-    } catch(e){
-         console.error(e)
-    }
- }
