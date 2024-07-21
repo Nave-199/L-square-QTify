@@ -23,6 +23,7 @@ const App = () => {
     }
   };
 
+  //get data is correct
   const getDataNewAlbums = async () => {
     try {
       const res = await fetchNewAlbums();
